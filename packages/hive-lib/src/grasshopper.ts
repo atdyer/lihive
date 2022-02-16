@@ -12,7 +12,7 @@ import { GameBoard, HexCoordinate } from './types';
  * @param coordinate The hex coordinate where the given tile is located.
  * @return An array of hex coordinates.
  */
- export function getValidGrasshopperMoveCoordinates(
+export function getValidGrasshopperMoveCoordinates(
   board: GameBoard,
   coordinate: HexCoordinate
 ): HexCoordinate[] {
