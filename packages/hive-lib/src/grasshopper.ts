@@ -1,4 +1,4 @@
-import { eachDirection, isGated, isSpaceOccupied } from './board';
+import { eachDirection, isSpaceOccupied } from './board';
 import { hexesEqual, relativeHexCoordinate } from './hex';
 import { GameBoard, HexCoordinate } from './types';
 
@@ -12,7 +12,7 @@ import { GameBoard, HexCoordinate } from './types';
  * @param coordinate The hex coordinate where the given tile is located.
  * @return An array of hex coordinates.
  */
-export function getValidGrasshopperMoveCoordinates(
+ export function getValidGrasshopperMoveCoordinates(
   board: GameBoard,
   coordinate: HexCoordinate
 ): HexCoordinate[] {
@@ -20,21 +20,10 @@ export function getValidGrasshopperMoveCoordinates(
   eachDirection((direction) => {
     const neighbor = relativeHexCoordinate(coordinate, direction);
     let current = neighbor;
-    // check if there is a gate between the grasshopper and first hex
-    var gateFound:boolean = isGated(board, coordinate, direction);
-    while (isSpaceOccupied(board, current) && !gateFound) {
-      // check for each gate along path
-      if (isGated(board, current, direction)) {
-        gateFound = true;
-      }
+    while (isSpaceOccupied(board, current)) {
       current = relativeHexCoordinate(current, direction);
     }
-
-    // check for gate in last dropdown
-    if (isGated(board, current, direction)) {
-      gateFound = true;
-    }
-    if (!hexesEqual(current, neighbor) && !gateFound) {
+    if (!hexesEqual(current, neighbor)) {
       valid.push(current);
     }
   });
